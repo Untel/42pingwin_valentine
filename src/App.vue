@@ -3,7 +3,7 @@
     <!-- <div class="header">
       <img src="/assets/type-logo.png"/>
     </div> -->
-    <div class="envelope">
+    <div class="envelope" @click="toggle">
       <LoveEnvelope ref="envelope"
         :message="`Nathan,\n tu es plus beau qu'un elephant,<br/> avec toi je voudrais des enfants.<br/> Si tu me prend, ici, maintenant,<br/> je t'en serais reconnaissant ❤️`"
         picture="https://cdn.intra.42.fr/users/nlafarge.jpg" />
@@ -32,7 +32,7 @@ export default {
   async mounted() {
     const login = await axios.get('http://localhost:8888/valentine?login=adda-sil');
     console.log(login)
-    setTimeout(() => this.toggle(), 1000);
+    // setTimeout(() => this.toggle(), 1000);
   },
   methods: {
     toggle() {
