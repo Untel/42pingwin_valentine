@@ -80,6 +80,8 @@ html, body, #app, .main {
 .made_with {
   color: var(--color3);
   font-weight: 400;
+  width: 100%;
+  text-align: center;
 }
 
 body {
