@@ -2,7 +2,9 @@
 <div class="all_container">
     <div class="container">
         <div class="envelope"></div>
-        <div ref="flip" class="flip"></div>
+        <div ref="flip" class="flip">
+            
+        </div>
         <div ref="letter" class="letter">
             <div class="text">
                 <div contenteditable class="text-content" v-html="message">
@@ -157,13 +159,13 @@ $top: #c94548;
  }
 
 .letterOpen{
-	height: (92px * $m) * 1.5;
-	top:(-40px * $m) * 2;
+	height: (92px * $m) * 1;
+	top:(-40px * $m) * 1;
 	transition: .3s ease-in;
  }
 
 .letterClose{
-	top: 0px * $m * 2;
+	top: 0px * $m * 1;
 	transition: .3s ease-in;
  }
 //animations
