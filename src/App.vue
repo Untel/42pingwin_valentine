@@ -5,13 +5,13 @@
     </div> -->
     <div class="envelope" @click="toggle">
       <LoveEnvelope ref="envelope"
-        :message="`Nathan,\n tu es plus beau qu'un elephant,<br/> avec toi je voudrais des enfants.<br/> Si tu me prend, ici, maintenant,<br/> je t'en serais reconnaissant ❤️`"
+        :message="`Nathan,\n tu es plus beau qu'un orang outan,<br/> avec toi je voudrais des enfants.<br/> Si tu me prend, ici, maintenant,<br/> je t'en serais reconnaissant ❤️`"
         picture="https://cdn.intra.42.fr/users/nlafarge.jpg" />
     </div>
-    <LoveBackground />
     <footer class="made_with">
       Made with ❤️ by <a href="https://github.com/untel">adda-sil</a>
     </footer>
+    <LoveBackground />
   </div>
 </template>
 
@@ -82,6 +82,7 @@ html, body, #app, .main {
   font-weight: 400;
   width: 100%;
   text-align: center;
+  z-index: 40;
 }
 
 body {
