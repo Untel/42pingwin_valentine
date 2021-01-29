@@ -5,7 +5,7 @@
     </div> -->
     <div class="envelope" @click="toggle">
       <LoveEnvelope ref="envelope"
-        :message="`Nathan,\n tu es plus beau qu'un orang outan,<br/> avec toi je voudrais des enfants.<br/> Si tu me prend, ici, maintenant,<br/> je t'en serais reconnaissant ❤️`"
+        :message="`Nathan,\n tu es plus beau qu'un orang outan,<br/> avec toi je voudrais des enfants.<br/> Si tu me prends, ici, maintenant,<br/> je t'en serais reconnaissant ❤️`"
         picture="https://cdn.intra.42.fr/users/nlafarge.jpg" />
     </div>
     <footer class="made_with">
