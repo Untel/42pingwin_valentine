@@ -1,26 +1,32 @@
 <template>
-<div class="all_container">
-    <div class="container">
-        <div class="envelope"></div>
-        <div ref="flip" class="flip">
-            
-        </div>
-        <div ref="letter" class="letter">
-            <div class="text">
+<div class="wrap">
+    <div class="all_container">
+        <div class="container">
+            <div class="envelope"></div>
+            <div ref="flip" class="flip"></div>
+            <div ref="letter" class="letter">
                 <div contenteditable class="text-content" v-html="message">
                 </div>
+                <div class="text">
+                </div>
             </div>
+            <ClippedImage :loading="loading" class="clipped" :url="picture" />
         </div>
-        <ClippedImage class="clipped" :url="picture" />
+        <label class="target" for="target">
+            <div>For</div> 
+            <input focus id="target" type="text" placeholder="Your crush loggin"
+                @change="$emit('onLoginTyped', $event.target.value)"
+                @keydown.enter="$emit('onLoginTyped', $event.target.value)"
+                @focus="$emit('onLoginTyped', null)"/>
+        </label>
     </div>
-
 </div>
 </template>
 <script>
 import ClippedImage from './ClippedImage'
 
 export default {
-    props: ['message', 'picture'],
+    props: ['message', 'picture', 'loading'],
     components: { ClippedImage },
     methods: {
         open(){
@@ -54,33 +60,81 @@ export default {
                 letter.style.zIndex = '5';
                 console.log('Should close', this.opened)
                 this.opened = false;
-            }, 300);
+            }, 1000);
         },
     },
 }
 </script>
 <style lang="scss" scoped>
+@import 'breakpoints';
+
+.target {
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    z-index: 200;
+    font-family: 'love';
+    font-size: 2.5rem;
+    color: white;
+    max-width: 30%;
+    div {
+        margin-right: 20px;
+    }
+    input {
+        font-family: 'love';
+        font-size: 2.5rem;
+        color: white;
+        display: flex;
+        min-width: 0;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        background-color: transparent;
+        border: none;
+        border: 2px dashed var(--color4);
+        padding: 0.625rem;
+        border-radius: 1.875rem;
+
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 20px;
+            font-style: italic;
+            color: rgba(70, 70, 70, 0.5);
+        }
+    }
+}
 
 .text-content {
-    padding: 30px;
+    padding: 1.875rem;
     font-family: 'love';
-    font-size: 40px;
+    font-size: 2.5rem;
     color: #272778;
+    width: auto;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
 .clipped {
     z-index: 20;
-    margin-left: 20px;
-    margin-top: 50px;
+    margin-left: 1.25rem;
+    margin-top: 3.125rem;
     transform: rotate(-30deg)
 }
 
 $s: solid;
 $a: absolute;
 $m: 6;
-$tb:46px * $m;
-$lr:70px * $m;
-$br:6px;
+$tb:2.875rem * $m;
+$lr:4.375rem * $m;
+$br:0.375rem;
 //color variables
 $left:#fa565a;
 $right:#ed4c50;
@@ -90,8 +144,22 @@ $top: #c94548;
 
 .all_container {
     position: relative;
-    height: 92px * $m;
-	width: 136px * $m;
+    height: 5.75rem * $m;
+    width: 8.5rem * $m;
+    
+}
+
+.wrap {
+    // overflow-x: hidden;
+    @include xs {
+        transform: scale(.4);
+    }
+    @include sm {
+        transform: scale(.5);
+    }
+    @include md {
+        transform: scale(.8);
+    }
 }
 
 .container,.envelope,.flip,.letter {
@@ -121,15 +189,15 @@ $top: #c94548;
   }
 .letter{
 	top:0px * $m;
-	left:2px * $m;
-	height: 92px * $m;
-	width: 136px * $m;
+	left:0.125rem * $m;
+	height: 5.75rem * $m;
+	width: 8.5rem * $m;
 	background: #ddd;
 	border-radius: $br;
 	z-index:1;
-	}
+}
 // .text{
-// 	top: 10px * $m;
+// 	top: 0.625rem * $m;
 // 	left:12px * $m;
 // 	height:6px * $m;
 // 	width:100px * $m;
@@ -142,7 +210,7 @@ $top: #c94548;
 // 	left:0px;
 // 	}
 // .text:before{
-// 	top:10px * $m;
+// 	top:0.625rem * $m;
 // 	width: 50px * $m;
 // 	}
 // .text:after{
@@ -159,8 +227,8 @@ $top: #c94548;
  }
 
 .letterOpen{
-	height: (92px * $m) * 1;
-	top:(-40px * $m) * 1;
+	height: (5.75rem * $m) * 1;
+	top:(-2.5rem * $m) * 1;
 	transition: .3s ease-in;
  }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div :class="['wrapper']">
         <svg viewbox="0 0 800 800" >
             <defs>
                 <clipPath style="transform: translateY(50px)" id="svgPath">
@@ -8,14 +8,19 @@
                 </clipPath>
             </defs>
         </svg>
-        <svg class="lol" viewbox="0 0 800 800" height="300">
-            <image class="svg-clipped" :xlink:href="url" height="300" ></image>
+        <svg :class="['lol', { 'loading': loading }]" viewbox="0 0 800 800" height="300">
+            <image class="svg-clipped" :xlink:href="url || fallbackimg" height="300" ></image>
         </svg>
     </div>
 </template>
 <script>
 export default {
-    props: ['url']
+    props: ['url', 'loading'],
+    computed: {
+        fallbackimg() {
+            return `https://mediamass.net/jdd/public/documents/celebrities/1868.jpg`
+        }
+    }
 }
 </script>
 <style lang="scss">
@@ -41,9 +46,28 @@ export default {
         position: relative;
     }
     @keyframes pulse {
-        0% { transform: rotate(-30deg) scale(1); }
-        50% { transform: rotate(-30deg) scale(1.1); }
-        100% { transform: rotate(-30deg) scale(1); }
+        0% { transform: rotate(3deg) scale(1); }
+        50% { transform: rotate(0deg) scale(1.1); }
+        100% { transform: rotate(3deg) scale(1); }
     }
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(-360deg);
+  }
+  50% {
+    -webkit-transform: rotate(-180deg);
+  }
+  100% {
+    -webkit-transform: rotate(0);
+  }
+}
+.loading {
+    animation-duration: .4s; 
+    animation-fill-mode: none;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-name: pulse;
+}
     
 </style>
