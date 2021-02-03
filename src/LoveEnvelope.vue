@@ -5,20 +5,20 @@
             <div class="envelope"></div>
             <div ref="flip" class="flip"></div>
             <div ref="letter" class="letter">
-                <div contenteditable class="text-content" v-html="message">
-                </div>
-                <div class="text">
-                </div>
+                <textarea :disabled="loading" contenteditable class="text-content" v-model="val">
+                </textarea>
+
             </div>
             <ClippedImage :loading="loading" class="clipped" :url="picture" />
         </div>
         <label class="target" for="target">
             <div>For</div> 
-            <input focus id="target" type="text" placeholder="Your crush loggin"
-                @change="$emit('onLoginTyped', $event.target.value)"
-                @keydown.enter="$emit('onLoginTyped', $event.target.value)"
-                @focus="$emit('onLoginTyped', null)"/>
+            <input id="target" type="text" placeholder="Your crush loggin"
+                @change="$emit('onLoginTyped', $event.target.value)"/>
         </label>
+        <div v-if="opened" class="sendLove">
+            <button :disabled="loading" @click="$emit('send', val)">Send</button>
+        </div>
     </div>
 </div>
 </template>
@@ -28,6 +28,7 @@ import ClippedImage from './ClippedImage'
 export default {
     props: ['message', 'picture', 'loading'],
     components: { ClippedImage },
+    data: () => ({ val: '', opened: false }),
     methods: {
         open(){
             if (this.opened)
@@ -43,11 +44,10 @@ export default {
                 letter.classList.add('letterOpen');
                 letter.classList.remove('letterClose');
                 this.opened = true;
-            },1000);
+            },800);
         },
 
-        close(){
-            console.log('close');
+        close() {
             if (!this.opened)
                 return;
             var flip = this.$refs.flip;
@@ -60,9 +60,14 @@ export default {
                 letter.style.zIndex = '5';
                 console.log('Should close', this.opened)
                 this.opened = false;
-            }, 1000);
+            }, 800);
         },
     },
+    watch: {
+        message(value) {
+            this.val = value;
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -117,9 +122,17 @@ export default {
     font-family: 'love';
     font-size: 2.5rem;
     color: #272778;
-    width: auto;
+    width: calc(100% - 1.875rem * 2);
+    border: none;
+    height: 14rem;
     max-height: 250px;
     overflow-y: auto;
+    background-color: transparent;
+    cursor: text;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .clipped {
@@ -146,7 +159,33 @@ $top: #c94548;
     position: relative;
     height: 5.75rem * $m;
     width: 8.5rem * $m;
-    
+}
+
+.sendLove {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    left: 0;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    button {
+        cursor: pointer;
+        font-family: 'love';
+        background-color: white;
+        font-size: 2.5rem;
+        background-color: transparent;
+        border: 2px dashed var(--color4);
+        padding: 20px;
+        border-radius: 40px;
+        color: var(--color1);
+
+        &:hover {
+            background-color: var(--color2);
+            color: white;
+            border: none;
+        }
+    }
 }
 
 .wrap {
@@ -196,28 +235,7 @@ $top: #c94548;
 	border-radius: $br;
 	z-index:1;
 }
-// .text{
-// 	top: 0.625rem * $m;
-// 	left:12px * $m;
-// 	height:6px * $m;
-// 	width:100px * $m;
-// 	background: $txt;
-//   }
-// .text:before,.text:after{
-// 	content:'';
-// 	height:100% * $m;
-// 	background: $txt;
-// 	left:0px;
-// 	}
-// .text:before{
-// 	top:0.625rem * $m;
-// 	width: 50px * $m;
-// 	}
-// .text:after{
-// 	top:20px * $m;
-// 	width:65px * $m;
-//   }
-/*Classes to be Added and removed*/
+
 .open{
 	animation: flipOpen .4s ease-in forwards ;
  }

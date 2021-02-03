@@ -8,8 +8,8 @@
                 </clipPath>
             </defs>
         </svg>
-        <svg :class="['lol', { 'loading': loading }]" viewbox="0 0 800 800" height="300">
-            <image class="svg-clipped" :xlink:href="url || fallbackimg" height="300" ></image>
+        <svg :class="['lol', { 'loading': loading }]" viewbox="0 0 800 800">
+            <image class="svg-clipped" :xlink:href="url || fallbackimg"></image>
         </svg>
     </div>
 </template>
@@ -24,6 +24,7 @@ export default {
 }
 </script>
 <style lang="scss">
+    @import 'breakpoints';
     .wrapper {
         position: absolute;
         // animation: pulse 3s ease infinite;
@@ -32,6 +33,10 @@ export default {
         // opacity: .3;
         filter: sepia(1);
         opacity: .5;
+        height: 300px;
+        image {
+            height: 300px;
+        }
     }
     .svg-clipped {
         -webkit-clip-path:url(#svgPath);
