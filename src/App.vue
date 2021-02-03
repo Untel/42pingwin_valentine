@@ -102,7 +102,7 @@ export default {
             this.loggin = log;
             this.picture = req.data.image_url;
             this.message = `Tu peux maintenant éclarer ta flamme à ${req.data.first_name}<br/> en écrivant dans la lettre 😏`;
-            this.initialMessage = `${req.data.first_name}, !`
+            this.initialMessage = `${req.data.first_name}, ...`
             this.$refs.envelope.open();
             this.showBackground = false;
           } else {
