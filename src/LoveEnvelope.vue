@@ -13,8 +13,9 @@
         </div>
         <label class="target" for="target">
             <div>For</div> 
-            <input id="target" type="text" placeholder="Your crush loggin"
-                @change="$emit('onLoginTyped', $event.target.value)"/>
+            <input id="target" type="text" v-model="login" placeholder="Your crush login"
+                @blur="shouldEmitLogin"
+                @keyup.enter="$event.target.blur()"/>
         </label>
         <div v-if="opened" class="sendLove">
             <button :disabled="loading" @click="$emit('send', val)">Send</button>
@@ -28,7 +29,7 @@ import ClippedImage from './ClippedImage'
 export default {
     props: ['message', 'picture', 'loading'],
     components: { ClippedImage },
-    data: () => ({ val: '', opened: false }),
+    data: () => ({ val: '', opened: false, login: '' }),
     methods: {
         open(){
             if (this.opened)
@@ -62,6 +63,10 @@ export default {
                 this.opened = false;
             }, 800);
         },
+        shouldEmitLogin() {
+            if (this.login.length <= 8)
+                this.$emit('onLoginTyped', this.login);
+        }
     },
     watch: {
         message(value) {
@@ -190,11 +195,14 @@ $top: #c94548;
 
 .wrap {
     // overflow-x: hidden;
+    @include xxs {
+        transform: scale(.35);
+    }
     @include xs {
-        transform: scale(.4);
+        transform: scale(.6);
     }
     @include sm {
-        transform: scale(.5);
+        transform: scale(.7);
     }
     @include md {
         transform: scale(.8);
